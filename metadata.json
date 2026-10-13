@@ -1,0 +1,6 @@
+{
+  "name": "Jal Mitra 360",
+  "description": "AI-Based Self-Learning and Self-Maintaining Water Monitoring System with Adaptive Response for Rural Water Networks in Gram Panchayats.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
