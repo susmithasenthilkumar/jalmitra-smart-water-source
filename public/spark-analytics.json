@@ -1,0 +1,17 @@
+{
+  "source": "Apache Spark / Scala",
+  "available": false,
+  "generatedAt": null,
+  "summaries": {
+    "villageAverageWaterLevel": [],
+    "villageAverageFlow": [],
+    "tankWaterUsage": [],
+    "leakageRiskRecords": [],
+    "abnormalSensorReadings": [],
+    "pumpStatusSummary": [],
+    "villageWaterWastage": [],
+    "villageComplaintSummary": [],
+    "overallWaterSupplySummary": []
+  },
+  "message": "Spark results are not available yet. Run WaterAnalysis.scala to generate them."
+}

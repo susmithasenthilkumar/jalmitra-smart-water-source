@@ -37,7 +37,7 @@ export const SparkAnalyticsView: React.FC<{ tamilEnabled: boolean }> = ({ tamilE
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/spark/analytics');
+      const response = await fetch(`${import.meta.env.BASE_URL}spark-analytics.json`);
       if (!response.ok) throw new Error(`Spark API returned ${response.status}`);
       setResult(await response.json() as SparkAnalyticsResponse);
     } catch (loadError) {
