@@ -3,7 +3,9 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const projectDirectory = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const outputDirectory = path.join(projectDirectory, 'output', 'api');
+const outputDirectory = path.resolve(
+  process.env.SPARK_BATCH_OUTPUT_DIR || path.join(projectDirectory, 'output', 'api')
+);
 const publicDirectory = path.join(projectDirectory, 'public');
 const summaryFolders = {
   villageAverageWaterLevel: 'village_average_water_level',
@@ -40,6 +42,16 @@ const summaries = Object.fromEntries(Object.entries(summaryFolders).map(([key, f
 }));
 
 const available = Object.values(summaries).some(rows => rows.length > 0);
+const analyticsFilePath = path.join(publicDirectory, 'spark-analytics.json');
+
+if (!available && existsSync(analyticsFilePath)) {
+  const existingResponse = JSON.parse(readFileSync(analyticsFilePath, 'utf8'));
+  if (existingResponse.available) {
+    console.log('Preserved existing Spark analytics because no fresh Spark output was found.');
+    process.exit(0);
+  }
+}
+
 const response = {
   source: 'Apache Spark / Scala',
   available,
@@ -48,5 +60,5 @@ const response = {
   message: available ? null : 'Spark results are not available yet. Run WaterAnalysis.scala to generate them.'
 };
 
-writeFileSync(path.join(publicDirectory, 'spark-analytics.json'), `${JSON.stringify(response, null, 2)}\n`);
+writeFileSync(analyticsFilePath, `${JSON.stringify(response, null, 2)}\n`);
 console.log(`Prepared static Spark analytics (${available ? 'results included' : 'no results found'}).`);
