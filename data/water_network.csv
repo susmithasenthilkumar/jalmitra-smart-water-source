@@ -1,0 +1,4 @@
+Record_ID,Date,Time,Village_ID,Village_Name,Tank_ID,Tank_Capacity_Liters,Water_Level_Percentage,Water_Level_Liters,Inlet_Flow_LPM,Outlet_Flow_LPM,Flow_Difference_LPM,Pipeline_Pressure_Bar,Pump_ID,Pump_Status,Pump_Runtime_Minutes,Power_Consumption_kWh,Water_Demand_Liters,Water_Supplied_Liters,Water_Wastage_Liters,Leakage_Status,Leakage_Risk_Percentage,Sensor_Status,Water_Quality_Status,Supply_Status,Temperature_C,Rainfall_mm,Maintenance_Status,Alert_Level,Complaint_Count
+DEMO-001,2026-11-12,08:00,VIL-001,Melur,TANK-001,50000,78,39000,120,110,10,2.4,PUMP-001,ON,360,12.5,12000,11000,1000,no,12,normal,good,ACTIVE,29,0,ok,low,0
+DEMO-002,2026-11-12,12:00,VIL-001,Melur,TANK-001,50000,61,30500,100,145,-45,1.1,PUMP-001,ON,240,9.2,14000,10500,3500,detected,72,warning,good,ACTIVE,33,0,inspection,high,2
+DEMO-003,2026-11-12,08:30,VIL-002,Keelur,TANK-002,40000,42,16800,80,74,6,1.8,PUMP-002,OFF,180,6.1,9000,7200,1800,no,28,normal,good,ACTIVE,28,1,ok,medium,1

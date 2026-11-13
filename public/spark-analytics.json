@@ -1,17 +1,159 @@
 {
   "source": "Apache Spark / Scala",
-  "available": false,
-  "generatedAt": null,
+  "available": true,
+  "generatedAt": "2026-11-13T16:21:30.656Z",
   "summaries": {
-    "villageAverageWaterLevel": [],
-    "villageAverageFlow": [],
-    "tankWaterUsage": [],
-    "leakageRiskRecords": [],
-    "abnormalSensorReadings": [],
-    "pumpStatusSummary": [],
-    "villageWaterWastage": [],
-    "villageComplaintSummary": [],
-    "overallWaterSupplySummary": []
+    "villageAverageWaterLevel": [
+      {
+        "Village_ID": "VIL-001",
+        "Village_Name": "Melur",
+        "Average_Water_Level_Percentage": 69.5,
+        "Average_Water_Level_Liters": 34750,
+        "Record_Count": 2
+      },
+      {
+        "Village_ID": "VIL-002",
+        "Village_Name": "Keelur",
+        "Average_Water_Level_Percentage": 42,
+        "Average_Water_Level_Liters": 16800,
+        "Record_Count": 1
+      }
+    ],
+    "villageAverageFlow": [
+      {
+        "Village_ID": "VIL-001",
+        "Village_Name": "Melur",
+        "Average_Inlet_Flow_LPM": 110,
+        "Average_Outlet_Flow_LPM": 127.5,
+        "Average_Flow_Difference_LPM": -17.5
+      },
+      {
+        "Village_ID": "VIL-002",
+        "Village_Name": "Keelur",
+        "Average_Inlet_Flow_LPM": 80,
+        "Average_Outlet_Flow_LPM": 74,
+        "Average_Flow_Difference_LPM": 6
+      }
+    ],
+    "tankWaterUsage": [
+      {
+        "Village_ID": "VIL-001",
+        "Village_Name": "Melur",
+        "Tank_ID": "TANK-001",
+        "Total_Demand_Liters": 26000,
+        "Total_Supplied_Liters": 21500,
+        "Total_Wastage_Liters": 4500,
+        "Average_Level_Percentage": 69.5
+      },
+      {
+        "Village_ID": "VIL-002",
+        "Village_Name": "Keelur",
+        "Tank_ID": "TANK-002",
+        "Total_Demand_Liters": 9000,
+        "Total_Supplied_Liters": 7200,
+        "Total_Wastage_Liters": 1800,
+        "Average_Level_Percentage": 42
+      }
+    ],
+    "leakageRiskRecords": [
+      {
+        "Record_ID": "DEMO-002",
+        "Date": "2026-11-12",
+        "Time": "12:00",
+        "Village_ID": "VIL-001",
+        "Village_Name": "Melur",
+        "Tank_ID": "TANK-001",
+        "Flow_Difference_LPM": -45,
+        "Pipeline_Pressure_Bar": 1.1,
+        "Leakage_Status": "detected",
+        "Leakage_Risk_Percentage": 72,
+        "Leakage_Risk_Band": "MEDIUM",
+        "Alert_Level": "high"
+      }
+    ],
+    "abnormalSensorReadings": [
+      {
+        "Record_ID": "DEMO-002",
+        "Date": "2026-11-12",
+        "Time": "12:00",
+        "Village_ID": "VIL-001",
+        "Village_Name": "Melur",
+        "Tank_ID": "TANK-001",
+        "Sensor_Status": "warning",
+        "Water_Level_Percentage": 61,
+        "Inlet_Flow_LPM": 100,
+        "Outlet_Flow_LPM": 145,
+        "Pipeline_Pressure_Bar": 1.1,
+        "Abnormal_Reason": "Sensor status: warning",
+        "Alert_Level": "high"
+      }
+    ],
+    "pumpStatusSummary": [
+      {
+        "Village_ID": "VIL-002",
+        "Village_Name": "Keelur",
+        "Pump_ID": "PUMP-002",
+        "Pump_Status": "OFF",
+        "Record_Count": 1,
+        "Average_Runtime_Minutes": 180,
+        "Total_Power_Consumption_kWh": 6.1
+      },
+      {
+        "Village_ID": "VIL-001",
+        "Village_Name": "Melur",
+        "Pump_ID": "PUMP-001",
+        "Pump_Status": "ON",
+        "Record_Count": 2,
+        "Average_Runtime_Minutes": 300,
+        "Total_Power_Consumption_kWh": 21.7
+      }
+    ],
+    "villageWaterWastage": [
+      {
+        "Village_ID": "VIL-001",
+        "Village_Name": "Melur",
+        "Total_Wastage_Liters": 4500,
+        "Average_Wastage_Per_Record_Liters": 2250,
+        "Record_Count": 2
+      },
+      {
+        "Village_ID": "VIL-002",
+        "Village_Name": "Keelur",
+        "Total_Wastage_Liters": 1800,
+        "Average_Wastage_Per_Record_Liters": 1800,
+        "Record_Count": 1
+      }
+    ],
+    "villageComplaintSummary": [
+      {
+        "Village_ID": "VIL-001",
+        "Village_Name": "Melur",
+        "Total_Complaints": 2,
+        "Average_Complaints_Per_Record": 1,
+        "Record_Count": 2
+      },
+      {
+        "Village_ID": "VIL-002",
+        "Village_Name": "Keelur",
+        "Total_Complaints": 1,
+        "Average_Complaints_Per_Record": 1,
+        "Record_Count": 1
+      }
+    ],
+    "overallWaterSupplySummary": [
+      {
+        "Unique_Record_Count": 3,
+        "Village_Count": 2,
+        "Tank_Count": 2,
+        "Total_Demand_Liters": 35000,
+        "Total_Supplied_Liters": 28700,
+        "Total_Wastage_Liters": 6300,
+        "Network_Average_Water_Level_Percentage": 60.33,
+        "Average_Leakage_Risk_Percentage": 37.33,
+        "Active_Supply_Record_Count": 3,
+        "Reported_Leakage_Record_Count": 1
+      }
+    ]
   },
-  "message": "Spark results are not available yet. Run WaterAnalysis.scala to generate them."
+  "message": null
 }
