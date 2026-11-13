@@ -42,6 +42,20 @@ interface DashboardViewProps {
   tamilEnabled: boolean;
 }
 
+interface SparkDashboardSummary {
+  Unique_Record_Count?: number;
+  Village_Count?: number;
+  Total_Supplied_Liters?: number;
+  Average_Leakage_Risk_Percentage?: number;
+}
+
+interface SparkDashboardResponse {
+  available: boolean;
+  summaries?: {
+    overallWaterSupplySummary?: SparkDashboardSummary[];
+  };
+}
+
 export const DashboardView: React.FC<DashboardViewProps> = ({
   currentRole,
   onNavigate,
@@ -53,6 +67,14 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   const [sensors, setSensors] = useState(dataService.sensors);
   const [complaints, setComplaints] = useState(dataService.complaints);
   const [alerts, setAlerts] = useState(dataService.alerts);
+  const [sparkResult, setSparkResult] = useState<SparkDashboardResponse | null>(null);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.BASE_URL}spark-analytics.json`, { cache: 'no-store' })
+      .then(response => response.ok ? response.json() as Promise<SparkDashboardResponse> : null)
+      .then(setSparkResult)
+      .catch(() => setSparkResult(null));
+  }, []);
 
   useEffect(() => {
     const sync = () => {
@@ -78,6 +100,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   const leakageAlerts = alerts.filter(a => a.alertType === 'LEAKAGE' && a.status === 'ACTIVE').length;
   const sensorWarnings = sensors.filter(s => s.status === 'warning' || s.status === 'contaminated' || s.status === 'critical').length;
   const pendingComplaints = complaints.filter(c => c.status !== 'RESOLVED').length;
+  const sparkSummary = sparkResult?.summaries?.overallWaterSupplySummary?.[0];
   const complaintChartData = VILLAGE_COMPLAINT_COUNTS.map(item => {
     const village = dataService.villages.find(v =>
       item.village === v.name.replace(/ (Gram Panchayat|Panchayat)$/, '') || v.name.startsWith(item.village)
@@ -347,6 +370,47 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         </div>
 
       </div>
+
+      <section className="rounded-2xl border border-cyan-200 bg-white p-5 shadow-xs sm:p-6">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-[10px] font-bold uppercase text-cyan-800">Scala DataFrame • Apache Spark SQL</p>
+            <h2 className="mt-1 text-base font-extrabold text-slate-900">
+              {tamilEnabled ? 'Spark நீர் வலையமைப்பு சுருக்கம்' : 'Spark Water Network Summary'}
+            </h2>
+          </div>
+          <button
+            type="button"
+            onClick={() => onNavigate('spark_analytics')}
+            className="inline-flex items-center gap-1 text-xs font-bold text-cyan-800 hover:text-cyan-950"
+          >
+            {tamilEnabled ? 'முழு பகுப்பாய்வு' : 'Full analytics'}
+            <ArrowUpRight className="h-3.5 w-3.5" />
+          </button>
+        </div>
+
+        {sparkResult?.available && sparkSummary ? (
+          <div className="mt-4 grid grid-cols-2 gap-3 xl:grid-cols-4">
+            {[
+              { label: tamilEnabled ? 'பதிவுகள்' : 'Records', value: sparkSummary.Unique_Record_Count },
+              { label: tamilEnabled ? 'ஊராட்சிகள்' : 'Villages', value: sparkSummary.Village_Count },
+              { label: tamilEnabled ? 'விநியோகம் (லிட்டர்)' : 'Supplied (litres)', value: sparkSummary.Total_Supplied_Liters },
+              { label: tamilEnabled ? 'சராசரி கசிவு அபாயம் (%)' : 'Avg. leak risk (%)', value: sparkSummary.Average_Leakage_Risk_Percentage }
+            ].map(metric => (
+              <div key={metric.label} className="rounded-lg bg-slate-50 px-3 py-3">
+                <p className="text-[11px] font-semibold text-slate-600">{metric.label}</p>
+                <p className="mt-1 text-lg font-black text-slate-950">
+                  {typeof metric.value === 'number' ? new Intl.NumberFormat().format(metric.value) : '—'}
+                </p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="mt-4 text-xs text-slate-600">
+            {tamilEnabled ? 'Spark முடிவுகள் இன்னும் உருவாக்கப்படவில்லை.' : 'Spark results have not been generated yet.'}
+          </p>
+        )}
+      </section>
 
       {/* 6 DASHBOARD CHARTS GRID */}
       <div className="grid min-w-0 grid-cols-1 gap-6 lg:grid-cols-2">
